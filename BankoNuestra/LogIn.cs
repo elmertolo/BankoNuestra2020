@@ -63,5 +63,11 @@ namespace BankoNuestra
            
         }
 
+        private void frmLogIn_Load(object sender, EventArgs e)
+        {
+            Color color = System.Drawing.ColorTranslator.FromHtml("#FFA542");
+            //   Color result = Color.FromArgb(color.R, color.G, color.B);
+            this.BackColor = color;
+        }
     }
 }

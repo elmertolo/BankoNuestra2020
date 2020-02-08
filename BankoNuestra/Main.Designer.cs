@@ -57,6 +57,7 @@
             this.rdbPersonal = new System.Windows.Forms.RadioButton();
             this.txtbatch = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dvgDatalist)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -66,7 +67,7 @@
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.Location = new System.Drawing.Point(615, 7);
+            this.lblUsername.Location = new System.Drawing.Point(617, 9);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(0, 16);
             this.lblUsername.TabIndex = 59;
@@ -75,7 +76,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(529, 9);
+            this.label8.Location = new System.Drawing.Point(528, 9);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(81, 16);
             this.label8.TabIndex = 58;
@@ -84,7 +85,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(20, 550);
+            this.button1.Location = new System.Drawing.Point(16, 541);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 35);
             this.button1.TabIndex = 11;
@@ -114,7 +115,7 @@
             // btnProcess
             // 
             this.btnProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProcess.Location = new System.Drawing.Point(532, 550);
+            this.btnProcess.Location = new System.Drawing.Point(528, 541);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(150, 35);
             this.btnProcess.TabIndex = 9;
@@ -125,7 +126,7 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(434, 550);
+            this.btnSave.Location = new System.Drawing.Point(434, 541);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(92, 35);
             this.btnSave.TabIndex = 8;
@@ -265,6 +266,7 @@
             this.groupBox1.Size = new System.Drawing.Size(662, 236);
             this.groupBox1.TabIndex = 55;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // txtBrstn
             // 
@@ -351,11 +353,22 @@
             this.label9.TabIndex = 62;
             this.label9.Text = "Batch :";
             // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(648, 593);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(0, 13);
+            this.lblVersion.TabIndex = 63;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 588);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.ClientSize = new System.Drawing.Size(694, 607);
+            this.ControlBox = false;
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.txtbatch);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox2);
@@ -423,6 +436,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtbatch;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblVersion;
     }
 }
 

@@ -69,6 +69,29 @@ namespace BankoNuestra.Process
                 }
 
             }
+            foreach (string chk in chkList)
+            {
+
+                if (chk == "CS")
+                {
+
+                    var chkB = _checkm.Where(e => e.ChequeType == chk).ToList();
+                    doBlockPath = Application.StartupPath + "\\Output\\Charge_Slip\\BlockA.txt";
+                    if (File.Exists(doBlockPath))
+                        File.Delete(doBlockPath);
+
+                    file = File.CreateText(doBlockPath);
+                    file.Close();
+
+                    using (file = new StreamWriter(File.Open(doBlockPath, FileMode.Append)))
+                    {
+                        string output = OutPutProcess.ConvertToBlockText(chkB, "CHARGE-SLIP", _mainForm.batchFile, _mainForm.deliveryDate, frmLogIn._userName, _mainForm.fileName);
+
+                        file.WriteLine(output);
+                    }
+                }
+
+            }
 
         }
        
@@ -280,16 +303,14 @@ namespace BankoNuestra.Process
 			
                     using (file = new StreamWriter(File.Open(printerFilePath, FileMode.Append)))
                       {
-                          string output = OutPutProcess.ConvertToPrinterFormat1(check[a].BRSTN, check[a].AccountNo, long.Parse(check[a].StartingSerial), check[a].Quantity, check[a].Name1, check[a].Name2, check[a].Address1, check[a].Address2, check[a].Address3, check[a].Address4, check[a].Address5, check[a].Address6, check[a].Address1, "B");
+                          string output = OutPutProcess.ConvertToPrinterFormat1(check[a].BRSTN, check[a].AccountNo, long.Parse(check[a].StartingSerial), check[a].PcsPerBook, check[a].Name1, check[a].Name2, check[a].Address1, check[a].Address2, check[a].Address3, check[a].Address4, check[a].Address5, check[a].Address6, check[a].Address1, "B");
 
                           file.WriteLine(output);
                         }
                     }
                     ZipCopyProcess.CopyPrinterFile(checktype, _mainForm);
                     ZipCopyProcess.CopyPackingDBF(checktype, _mainForm);
-                }
-             
-               
+                }  
             }
      
             foreach (string checktype in listofchecks)
@@ -309,7 +330,7 @@ namespace BankoNuestra.Process
 
                         using (file = new StreamWriter(File.Open(printerFilePath, FileMode.Append)))
                         {
-                            string output = OutPutProcess.ConvertToPrinterFormat1(check[a].BRSTN, check[a].AccountNo, long.Parse(check[a].StartingSerial), check[a].Quantity, check[a].Name1, check[a].Name2, check[a].Address1, check[a].Address2, check[a].Address3, check[a].Address4, check[a].Address5, check[a].Address6, check[a].Address1, "B");
+                            string output = OutPutProcess.ConvertToPrinterFormat1(check[a].BRSTN, check[a].AccountNo, long.Parse(check[a].StartingSerial), check[a].PcsPerBook, check[a].Name1, check[a].Name2, check[a].Address1, check[a].Address2, check[a].Address3, check[a].Address4, check[a].Address5, check[a].Address6, check[a].Address1, "CS");
 
                             file.WriteLine(output);
                         }

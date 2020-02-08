@@ -285,8 +285,8 @@ namespace BankoNuestra.Process
         public static string ConvertToPrinterFormat1(string _BRSTN, string _AcctNo, Int64 _StartSeries, int _pcsPerbook, string _name1, string _name2,
             string _Address1, string _Address2, string _Address3, string _Address4, string _Address5, string _Address6, string _branchName, string _checkType = "")
         {
-            try
-            {
+            //try
+            //{
                 Int64 Series = _StartSeries + _pcsPerbook;
 
                 Int64 endSeries = Series - 1;
@@ -299,13 +299,15 @@ namespace BankoNuestra.Process
                // string accountNO = "0" + _AcctNo;
                 string txtSeries = Series.ToString();
 
-                if (_checkType == "A" || _checkType == "CS")
-                {
+                //if (_checkType == "A" || _checkType == "CS")
+                //{
                     while (outputStartSeries.Length < 10)
+                { 
                         outputStartSeries = "0" + outputStartSeries;
                     txtSeries = "0" + txtSeries;
-
+                    }
                     while (outputEndSeries.Length < 10)
+                { 
                         outputEndSeries = "0" + outputEndSeries;
                     txtSeries = "0" + txtSeries;
                 }
@@ -345,8 +347,9 @@ namespace BankoNuestra.Process
 
                 //    brstnFormat += "\n";
                 //}
+                 //.//output = "";
 
-                string output = "2\n" + //1 (FIXED)
+            string output = "2\n" + //1 (FIXED)
                                 _BRSTN + "\n" + //2  (BRSTN)
                                 _AcctNo + "\n" + //3 (ACCT NUMBER)
                                 txtSeries + "\n" + //4 (Start Series + PCS per Book)
@@ -380,11 +383,11 @@ namespace BankoNuestra.Process
                                 outputEndSeries; //32 (ENDING SERIES)
 
                 return output;
-            }
-            catch
-            {
-                return "";
-            }
+          //  }
+            //catch
+            //{
+            //    return "";
+            //}
         }//END OF FUNCTION
    
         public static DialogResult InputBox(string title, string promptText, ref string value)

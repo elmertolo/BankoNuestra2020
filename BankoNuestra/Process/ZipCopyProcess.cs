@@ -32,7 +32,7 @@ namespace BankoNuestra.Process
             DeleteZipfile();
             ZipFile.CreateFromDirectory(sPath, dPath);
 
-           // CopyZipFile(_processby);
+            CopyZipFile(_processby,main);
         }
         public void DeleteZipfile()
         {
@@ -61,7 +61,7 @@ namespace BankoNuestra.Process
         public void CopyZipFile(string _processby,frmMain main)
         {
             string dPath = Application.StartupPath + @"\AFT_" + main.batchFile + "_" + _processby + ".zip";
-            string sPath = "\\192.168.0.254\\Auto\\Zips\\Banko_Nuestra\\Test\\AFT_" + main.batchFile + "_" + _processby + ".zip";
+            string sPath = "\\\\192.168.0.254\\captive\\Zips\\Banko_Nuestra\\Test\\AFT_" + main.batchFile + "_" + _processby + ".zip";
             File.Copy(sPath, dPath, true);
             //string dPath2 = "\\\\192.168.0.254\\PrinterFiles\\ISLA\\2019\\";
             //string sPath2 = "\\\\192.168.0.254\\captive\\Auto\\IslaBank\\Test\\";
@@ -92,7 +92,7 @@ namespace BankoNuestra.Process
            
             string destination1 = @"\\192.168.0.254\Packing\Banko_Nuestra\TEST\" + _mainForm.batchFile;
         
-
+                    
             if (_checkType == "A" ||  _checkType == "B")
                 File.Copy(source + "\\Regular_Checks\\Packing.dbf", destination1 +  "\\Packing.dbf", true);
            

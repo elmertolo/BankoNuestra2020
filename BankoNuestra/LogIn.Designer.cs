@@ -38,9 +38,10 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(166, 182);
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Location = new System.Drawing.Point(168, 142);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.Size = new System.Drawing.Size(75, 24);
             this.btnLogin.TabIndex = 14;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -49,42 +50,46 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(188, 154);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(172, 107);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.Size = new System.Drawing.Size(68, 16);
             this.label2.TabIndex = 13;
             this.label2.Text = "Password";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(186, 115);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(170, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.Size = new System.Drawing.Size(71, 16);
             this.label1.TabIndex = 12;
             this.label1.Text = "Username";
             // 
             // txtBoxPassword
             // 
-            this.txtBoxPassword.Location = new System.Drawing.Point(23, 131);
+            this.txtBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtBoxPassword.Location = new System.Drawing.Point(23, 79);
             this.txtBoxPassword.Name = "txtBoxPassword";
             this.txtBoxPassword.PasswordChar = '*';
-            this.txtBoxPassword.Size = new System.Drawing.Size(218, 20);
+            this.txtBoxPassword.Size = new System.Drawing.Size(218, 26);
             this.txtBoxPassword.TabIndex = 11;
             this.txtBoxPassword.UseSystemPasswordChar = true;
             // 
             // txtBoxUsername
             // 
-            this.txtBoxUsername.Location = new System.Drawing.Point(23, 92);
+            this.txtBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxUsername.Location = new System.Drawing.Point(23, 28);
             this.txtBoxUsername.Name = "txtBoxUsername";
-            this.txtBoxUsername.Size = new System.Drawing.Size(218, 20);
+            this.txtBoxUsername.Size = new System.Drawing.Size(218, 26);
             this.txtBoxUsername.TabIndex = 10;
             // 
             // frmLogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(253, 219);
+            this.ClientSize = new System.Drawing.Size(256, 179);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -94,6 +99,7 @@
             this.Name = "frmLogIn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Banko Nuestra";
+            this.Load += new System.EventHandler(this.frmLogIn_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -31,13 +31,17 @@ namespace BankoNuestra
         public frmMain()
         {
             InitializeComponent();
-            dateTime = dateTimePicker1.MinDate = DateTime.Now; //Disable selection of backdated dates to prevent errors     
+            dateTime = dateTimePicker1.MinDate = DateTime.Now.Date; //Disable selection of backdated dates to prevent errors     
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-          
-              txtAccountNumber.MaxLength = 12;
+            Color color = System.Drawing.ColorTranslator.FromHtml("#FFA542");
+            //   Color result = Color.FromArgb(color.R, color.G, color.B);
+            this.BackColor = color;
+            lblVersion.Text = "v1.0";
+            //groupBox1.BackColor = Color.DarkGray;
+            txtAccountNumber.MaxLength = 12;
             txtAccountName1.MaxLength = 50;
             txtAccountName2.MaxLength = 50;
             DisplayBranch();
@@ -46,6 +50,7 @@ namespace BankoNuestra
             txtAccountNumber.BackColor = System.Drawing.Color.LightGray;
             txtAccountName1.BackColor = System.Drawing.Color.LightGray;
             txtAccountName2.BackColor = System.Drawing.Color.LightGray;
+           
             txtOrQty.BackColor = System.Drawing.Color.LightGray;
             deliveryDate = dateTime;
             MessageBox.Show(db.databaseName);
@@ -110,9 +115,6 @@ namespace BankoNuestra
                     cheque.ChequeName = rdbPersonal.Text;
                     //totalcheque = cheque.Quantity * 50;
                    // cheque.EndingSerial = (LastNo  + totalcheque).ToString();
-                  
-                  
-                  
                 }
                 if (rdbCommercial.Checked == true)
                 {
@@ -128,8 +130,8 @@ namespace BankoNuestra
                 }
                 if (rdbChargeSlip.Checked == true)
                 {
-                  //  lblPcsperbook.Text = "50 Pcs. / Bkt";
-                     
+                    //  lblPcsperbook.Text = "50 Pcs. / Bkt";
+                    OutPutProcess.InputBox("", "Input Serial Number :", ref stringchargeSlipSerial);
                     cheque.ChequeType = "CS";
                     cheque.PcsPerBook = 50; 
                     cheque.ChequeName = rdbChargeSlip.Text;
@@ -172,11 +174,15 @@ namespace BankoNuestra
                     else if (cheque.ChequeType == "CS")
                     {
                         //  cheque.EndingSerial = 
-
-                        cheque.EndingSerial = (LastNoCS + 50).ToString();
-                        cheque.StartingSerial = (LastNoCS + 1).ToString();
+                        chargeSlipSerial = Int64.Parse(stringchargeSlipSerial);
+                        cheque.StartingSerial = chargeSlipSerial.ToString();
+                        chargeSlipSerial += 50;
+                        cheque.EndingSerial = (chargeSlipSerial -1).ToString();
+                     //   cheque.StartingSerial = (LastNoCS + 1).ToString();
                          db.SaveToTempTable(cheque);
-                         //br.LastNo_CS = Int64.Parse(cheque.EndingSerial);
+                        //br.LastNo_CS = Int64.Parse(cheque.EndingSerial);
+                        stringchargeSlipSerial = chargeSlipSerial.ToString();
+                       // MessageBox.Show(cheque.EndingSerial + " - " + cheque.StartingSerial);
                     }
 
                 }
@@ -206,7 +212,7 @@ namespace BankoNuestra
                 db.GetLastNO(br, cheque.BRSTN);
                 LastNoP = int.Parse(br.LastNo_P.ToString());
                 LastNoC = int.Parse(br.LastNo_C.ToString());
-                LastNoCS = int.Parse(br.LastNo_CS.ToString());
+              //  LastNoCS = int.Parse(br.LastNo_CS.ToString());
             }
         }
 
@@ -227,7 +233,7 @@ namespace BankoNuestra
         private void rdbChargeSlip_CheckedChanged(object sender, EventArgs e)
         {
             lblPcsperbook.Text = "50 Pcs. / Bkt";
-            txtAccountNumber.Text = "00000000000";
+            txtAccountNumber.Text = "000000000000";
             txtAccountName1.Enabled = false;
             txtAccountName2.Enabled = false;
             txtAccountNumber.Enabled = false;
@@ -235,7 +241,7 @@ namespace BankoNuestra
             txtAccountNumber.BackColor = System.Drawing.Color.LightGray;
             txtAccountName1.BackColor = System.Drawing.Color.LightGray;
             txtAccountName2.BackColor = System.Drawing.Color.LightGray;
-            OutPutProcess.InputBox("", "Input Serial Number :", ref stringchargeSlipSerial);
+            
           //  MessageBox.Show(stringchargeSlipSerial);
         }
 
@@ -422,6 +428,12 @@ namespace BankoNuestra
         private void txtAccountName2_TextChanged(object sender, EventArgs e)
         {
             txtAccountName2.CharacterCasing = CharacterCasing.Upper;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+            // System.Drawing.ColorTranslator.FromHtml("#A9A9A9");
+           
         }
     }
 }
