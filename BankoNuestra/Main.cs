@@ -123,9 +123,7 @@ namespace BankoNuestra
                     cheque.ChequeType = "B";
                     cheque.PcsPerBook = 100; 
                     cheque.ChequeName = rdbCommercial.Text;
-                   // totalcheque = cheque.Quantity * 100;
-                    
-                 //   cheque.StartingSerial = (LastNo + 1).ToString();
+                  
                     
                 }
                 if (rdbChargeSlip.Checked == true)
@@ -135,20 +133,13 @@ namespace BankoNuestra
                     cheque.ChequeType = "CS";
                     cheque.PcsPerBook = 50; 
                     cheque.ChequeName = rdbChargeSlip.Text;
-                   // totalcheque = cheque.Quantity * 50;
-                    
-               //     cheque.StartingSerial = (LastNo + 1).ToString();
+                
                    
                 }
-
-                
-                
-                
-          //  cheque.StartingSerial = (LastNo + 1).ToString();
-            br.DateUpdated =DateTime.Now;
-            //cheque.PcsPerBook = int.Parse(lblPcsperbook.Text);
+            
            
-          //  MessageBox.Show(cheque.StartingSerial + " - + " + cheque.EndingSerial);
+            br.DateUpdated =DateTime.Now;
+         
             for (int i = 0; i < cheque.Quantity; i++)
             {
              
@@ -166,27 +157,29 @@ namespace BankoNuestra
                     }
                     else if (cheque.ChequeType == "B")
                     {
-                        cheque.EndingSerial = (LastNoC + 100).ToString();
                         cheque.StartingSerial = (LastNoC + 1).ToString();
+                       
+                        LastNoC += 100;
+                        cheque.EndingSerial = (LastNoC + 100).ToString();
                         db.SaveToTempTable(cheque);
-                        //br.LastNo_C = Int64.Parse(cheque.EndingSerial);
+                        br.LastNo_C = Int64.Parse(cheque.EndingSerial);
                     }
                     else if (cheque.ChequeType == "CS")
                     {
-                        //  cheque.EndingSerial = 
+                      
                         chargeSlipSerial = Int64.Parse(stringchargeSlipSerial);
                         cheque.StartingSerial = chargeSlipSerial.ToString();
                         chargeSlipSerial += 50;
                         cheque.EndingSerial = (chargeSlipSerial -1).ToString();
-                     //   cheque.StartingSerial = (LastNoCS + 1).ToString();
+                 
                          db.SaveToTempTable(cheque);
                         //br.LastNo_CS = Int64.Parse(cheque.EndingSerial);
                         stringchargeSlipSerial = chargeSlipSerial.ToString();
-                       // MessageBox.Show(cheque.EndingSerial + " - " + cheque.StartingSerial);
+                       
                     }
 
                 }
-               // db.SaveToTempTable(cheque);
+              
             
           
             MessageBox.Show("Data has been saved!");
@@ -212,7 +205,7 @@ namespace BankoNuestra
                 db.GetLastNO(br, cheque.BRSTN);
                 LastNoP = int.Parse(br.LastNo_P.ToString());
                 LastNoC = int.Parse(br.LastNo_C.ToString());
-              //  LastNoCS = int.Parse(br.LastNo_CS.ToString());
+              
             }
         }
 
@@ -241,8 +234,8 @@ namespace BankoNuestra
             txtAccountNumber.BackColor = System.Drawing.Color.LightGray;
             txtAccountName1.BackColor = System.Drawing.Color.LightGray;
             txtAccountName2.BackColor = System.Drawing.Color.LightGray;
-            
-          //  MessageBox.Show(stringchargeSlipSerial);
+            txtOrQty.BackColor = System.Drawing.Color.Empty;
+       
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -406,8 +399,6 @@ namespace BankoNuestra
           
             ZipCopyProcess z = new ZipCopyProcess();
             z.ZipFileS(frmLogIn._userName, this);
-          //  ZipCopyProcess.CopyPrinterFile(this);
-            
             db.DeleteTempData();
             CheckLoadData();
             db.DumpMySQL();

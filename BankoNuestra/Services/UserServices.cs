@@ -24,15 +24,13 @@ namespace BankoNuestra.Services
                         Password = "",
                         Name = "Test User"
                     };
-                 //   Properties.Settings.Default.IfTest = true;
+              
                     return user;
                 }
 
                 else
                 {
-                    //   int check = _check;
-                  //  Properties.Settings.Default.IfTest = false;
-                    // _check = 0;
+          
                     DBConnect();
 
                     Users user = new Users();
@@ -41,13 +39,6 @@ namespace BankoNuestra.Services
 
                     MySqlCommand myCommand = new MySqlCommand(query, myConnect);
                     MySqlDataAdapter sda = new MySqlDataAdapter(myCommand);
-                    // bool t;
-                    //DataTable dt = new DataTable();
-                    //sda.Fill(dt);
-                    //if (dt.Rows.Count == 1)
-                    //{
-                    //  // t = true;
-
                     MySqlDataReader myReader = myCommand.ExecuteReader();
                     while (myReader.Read())
                     {
@@ -61,18 +52,6 @@ namespace BankoNuestra.Services
                     }
                     DBClosed();
                     return user;
-
-                    //}
-                    //else
-                    //{
-                    //  //  t = false;
-                    //  // check = 1;
-                    //    DBClosed();
-                    //    return user; 
-                    //}
-
-                    //return check;
-
                 }
             }
             catch (Exception error)
