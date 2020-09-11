@@ -45,7 +45,7 @@ namespace BankoNuestra
                    var result = userService.Login(txtBoxUsername.Text, txtBoxPassword.Text);
                     if (txtBoxPassword.Text == result.Password && txtBoxUsername.Text == result.Username)
                     {
-                        frmMain form = new frmMain();
+                        Main2 form = new Main2();
                         _userName = txtBoxUsername.Text;
                         form.Show();
                         Hide();
@@ -68,6 +68,16 @@ namespace BankoNuestra
             Color color = System.Drawing.ColorTranslator.FromHtml("#FFA542");
             //   Color result = Color.FromArgb(color.R, color.G, color.B);
             this.BackColor = color;
+        }
+
+        private void txtBoxPassword_MouseEnter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxPassword_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -26,7 +26,8 @@ namespace BankoNuestra
         string stringchargeSlipSerial = "";
         int LastNoP = 0;
         int LastNoC = 0;
-        int LastNoCS = 0;
+        public static string _outputfolder = "";
+        //  int LastNoCS = 0;
         //private int endserial = 0;
         public frmMain()
         {
@@ -90,6 +91,7 @@ namespace BankoNuestra
             txtAccountName1.BackColor = System.Drawing.Color.Empty;
             txtAccountName2.BackColor = System.Drawing.Color.Empty;
             txtOrQty.BackColor = System.Drawing.Color.Empty;
+            _outputfolder = "Regular_Checks";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -221,6 +223,7 @@ namespace BankoNuestra
             txtAccountName1.BackColor = System.Drawing.Color.Empty;
             txtAccountName2.BackColor = System.Drawing.Color.Empty;
             txtOrQty.BackColor = System.Drawing.Color.Empty;
+            _outputfolder = "Regular_Checks";
         }
 
         private void rdbChargeSlip_CheckedChanged(object sender, EventArgs e)
@@ -235,11 +238,14 @@ namespace BankoNuestra
             txtAccountName1.BackColor = System.Drawing.Color.LightGray;
             txtAccountName2.BackColor = System.Drawing.Color.LightGray;
             txtOrQty.BackColor = System.Drawing.Color.Empty;
+            _outputfolder = "Charge_Slip";
        
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            db.DBClosed();
+            db.DeleteTempData();
             Environment.Exit(0);
         }
 
@@ -339,11 +345,11 @@ namespace BankoNuestra
                                 MessageBox.Show("Batch is already exists!!!!!");
                                 goto isExist;
                             }
-                            else
-                                  CheckProcess();
+                           
                         }
 
-                      
+
+                        CheckProcess();
                     }
                     else
                     {
@@ -381,10 +387,10 @@ namespace BankoNuestra
             OutPut2Process processOutput = new OutPut2Process();
           //  Int64 endingSeries = 0;
           //  db.GetAllData(lcheque, batchFile);
-            
-            
-           
-          
+
+
+
+            db.DumpMySQL();
             processOutput.ProcessCheck(lcheque, this);
             processOutput.PackingText(pcheque, this);
             processOutput.SaveToPackingDBF(dbfcheque, batchFile, this);
@@ -392,16 +398,18 @@ namespace BankoNuestra
             
             for (int i = 0; i < lcheque.Count; i++)
             {
-                db.SavedDatatoDatabase(lcheque[i], batchFile);       
+                db.SavedDatatoDatabase(lcheque[i], batchFile,deliveryDate);       
             }
             
-            db.UpdateRef(br, cheque.BRSTN);
+            
           
             ZipCopyProcess z = new ZipCopyProcess();
-            z.ZipFileS(frmLogIn._userName, this);
+            
             db.DeleteTempData();
             CheckLoadData();
-            db.DumpMySQL();
+            db.UpdateRef(br, cheque.BRSTN);
+            
+            z.ZipFileS(frmLogIn._userName, this);
             MessageBox.Show("Process Done!!");
             Environment.Exit(0);
         }
@@ -425,6 +433,11 @@ namespace BankoNuestra
         {
             // System.Drawing.ColorTranslator.FromHtml("#A9A9A9");
            
+        }
+
+        private void txtBrstn_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

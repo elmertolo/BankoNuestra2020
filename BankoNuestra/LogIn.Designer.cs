@@ -76,6 +76,8 @@
             this.txtBoxPassword.Size = new System.Drawing.Size(218, 26);
             this.txtBoxPassword.TabIndex = 11;
             this.txtBoxPassword.UseSystemPasswordChar = true;
+            this.txtBoxPassword.Enter += new System.EventHandler(this.txtBoxPassword_Enter);
+            this.txtBoxPassword.MouseEnter += new System.EventHandler(this.txtBoxPassword_MouseEnter);
             // 
             // txtBoxUsername
             // 

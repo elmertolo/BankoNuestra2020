@@ -53,7 +53,7 @@ namespace BankoNuestra.Process
             GenerateSpace(18) + "Branch Name and Address is already in the Basestock\n\n"+
             GenerateSpace(21) + "Branch Name AND BRSTN is fixed: 06137-0012" + "\n\n\n" +
             GenerateSpace(8) + "BLOCK RT_NO" + GenerateSpace(5) + "M ACCT_NO" + GenerateSpace(9) + "START_NO." + GenerateSpace(2) + "END_NO.\n\n";
-            int checkTypeCount = 0;
+            string checkType = "";
             foreach (var check in sort)
             {
 
@@ -69,6 +69,7 @@ namespace BankoNuestra.Process
                 //}
                 //else
                 //{
+                checkType = check.ChequeType;
 
                     while (check.StartingSerial.Length < 10)
                         check.StartingSerial = "0" + check.StartingSerial;
@@ -110,7 +111,7 @@ namespace BankoNuestra.Process
             if (noFooter) //ADD FOOTER
             {
                 output += "\n " + _batchNumber + GenerateSpace(46) + "DLVR: " + _deliveryDate.ToString("MM-dd(ddd)") + "\n\n" +
-                    " A = " + checkTypeCount + GenerateSpace(20) + _fileName + ".txt\n" +
+                 " "+checkType  +    " = " + _check.Count + GenerateSpace(20) + _fileName + ".txt\n\n" +
                     countText +
                     GenerateSpace(4) + "Prepared By" + GenerateSpace(3) + ": " + _preparedBy + "\t\t\t\t RECHECKED BY:\n" +
                     GenerateSpace(4) + "Updated By" + GenerateSpace(4) + ": " + _preparedBy + "\n" +
@@ -129,7 +130,7 @@ namespace BankoNuestra.Process
             return output;
 
         }
-        public static string ConvertToPackingList(List<ChequeModel> _checks, string _checkType, frmMain _mainForm)
+        public static string ConvertToPackingList(List<ChequeModel> _checks, string _checkType, string _batchfile)
         {
             var listofbrstn = _checks.Select(e => e.BRSTN).Distinct().ToList();
             int page = 1;
@@ -147,7 +148,7 @@ namespace BankoNuestra.Process
                                   GenerateSpace(2) + "ACCT_NO" + GenerateSpace(9) + "ACCOUNT NAME" + GenerateSpace(21) + "QTY CT START #" + GenerateSpace(4) + "END #\n\n\n";
                 var listofchecks = _checks.Where(e => e.BRSTN == brstn).ToList();
                 output += " ** ORDERS OF BRSTN " + _checks[i].BRSTN + " " + _checks[i].Address1 + "\n\n" +
-                              " * BATCH #: " + _mainForm.batchFile + "\n\n";
+                              " * BATCH #: " + _batchfile + "\n\n";
 
 
 
@@ -176,7 +177,7 @@ namespace BankoNuestra.Process
                     if (check.Name1.Length < 33)
                         output += check.Name1 + GenerateSpace(33 - check.Name1.Length);
                     else if (check.Name1.Length > 33)
-                        output += check.Name2.Substring(0, 33);
+                        output += check.Name2;
 
                     output += "  1 " + check.ChequeType + GenerateSpace(2) + check.StartingSerial + GenerateSpace(4) + check.EndingSerial + " \n";
                     if (check.Name2 != "")
@@ -184,13 +185,13 @@ namespace BankoNuestra.Process
                 }
 
                 output += "\n";
-                output += "  * * * Sub Total * * * " + listofchecks.Count + "\n";
+                output += "  * * * Sub Total * * *  " + listofchecks.Count + "\n\n\n";
 
                 page++;
                 i++;
 
             }
-            output += "  * * * Grand Total * * * " + _checks.Count + "\n";
+            output += "  * * * Grand Total * * *  " + _checks.Count + "\n";
             return output;
 
         }// end of function
@@ -217,7 +218,7 @@ namespace BankoNuestra.Process
                 }
                 else
                 {
-                    Series = Int64.Parse(check.EndingSerial) + 1 ;
+                    Series = Int64.Parse(check.EndingSerial) + 1;
                 }
                 Int64 endSeries = Series - 1;
 
@@ -245,10 +246,11 @@ namespace BankoNuestra.Process
                     while (check.EndingSerial.Length < 10)
                         check.EndingSerial = "0" + check.EndingSerial;
                 }
+
                  output = "2\n" + //1 (FIXED)
                           check.BRSTN + "\n" + //2  (BRSTN)
                           check.AccountNo + "\n" + //3 (ACCT NUMBER)
-                           Series.ToString() + "\n" + //4 (Start Series + PCS per Book)
+                           txtSeries+ "\n" + //4 (Start Series + PCS per Book)
                           "A\n" + //5 (FIXED)
                           "\n" + //6 (BLANK)
                           check.BRSTN.Substring(0, 5) + "\n" + " " +//7 BRSTN FORMATTED

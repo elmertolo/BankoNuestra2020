@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BankoNuestra.Models;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 namespace BankoNuestra.Services
 {
@@ -56,6 +57,7 @@ namespace BankoNuestra.Services
             }
             catch (Exception error)
             {
+                MessageBox.Show(error.Message);
                 return null;
             }
         }

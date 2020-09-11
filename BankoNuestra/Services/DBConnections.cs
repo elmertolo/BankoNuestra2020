@@ -198,14 +198,14 @@ namespace BankoNuestra.Services
 
         }// end of function
 
-        public ChequeModel SavedDatatoDatabase(ChequeModel _check, string _batch)
+        public ChequeModel SavedDatatoDatabase(ChequeModel _check, string _batch,DateTime _deliveryDate)
         {
 
             string sql = "INSERT INTO " + databaseName + ".banko_nuestra(Date,Time,DeliveryDate,ChkType,ChequeName,BRSTN,AccountNo,Name1,Name2,Address1,Address2,Address3,Address4,Address5,Address6,Batch,StartingSerial, EndingSerial)VALUES(" +
 
                         "'" + DateTime.Now.ToString("yyyy-MM-dd") + "'," +
                         "'" + DateTime.Now.ToString("HH:mm:ss") + "'," +
-                        "'" + _check.deliveryDate.ToString("yyyy-MM-dd") + "'," +
+                        "'" + _deliveryDate.ToString("yyyy-MM-dd") + "'," +
                         "'" + _check.ChequeType + "'," +
                         "'" + _check.ChequeName + "'," +
                         "'" + _check.BRSTN + "'," +
@@ -233,6 +233,7 @@ namespace BankoNuestra.Services
         }// end of function
         public void DeleteTempData()
         {
+                
             string sql = "Delete from " + databaseName + ".banko_nuestra_temp";
             MySqlCommand cmd = new MySqlCommand(sql, myConnect);
             myConnect.Open();
@@ -306,7 +307,7 @@ namespace BankoNuestra.Services
         public void DumpMySQL()
         {
             string dbname = "banko_nuestra_branches";
-            string outputFolder = @"K:\Auto\BankoNuestra2020\Test";
+            string outputFolder = Application.StartupPath +"\\Output\\" +frmMain._outputfolder;
             System.Diagnostics.Process proc = new System.Diagnostics.Process();
 
             proc.StartInfo.FileName = "cmd.exe";
@@ -353,6 +354,45 @@ namespace BankoNuestra.Services
 
             return "";
         }
+        public void DumpMySQL2()
+        {
+            string dbname = "banko_nuestra_branches";
+            string outputFolder = Application.StartupPath + "\\Output\\" + Main2.outputFolder;
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+
+            proc.StartInfo.FileName = "cmd.exe";
+
+            proc.StartInfo.UseShellExecute = false;
+
+            proc.StartInfo.WorkingDirectory = GetMySqlPath().ToUpper().Replace("MYSQLDUMP.EXE", "");
+
+            proc.StartInfo.RedirectStandardInput = true;
+
+            proc.StartInfo.RedirectStandardOutput = true;
+
+            proc.Start();
+
+            StreamWriter myStreamWriter = proc.StandardInput;
+
+            string temp = "mysqldump.exe --user=root --password=CorpCaptive --host=192.168.0.254 " + databaseName + " " + dbname + " > " +
+                outputFolder + "\\" + DateTime.Today.ToShortDateString().Replace("/", ".") + "-" + dbname + ".SQL";
+
+            myStreamWriter.WriteLine(temp);
+
+            dbname = "banko_nuestra";
+
+            temp = "mysqldump.exe --user=root --password=password=CorpCaptive --host=192.168.0.254 " + databaseName + " " + dbname + " > " +
+                 outputFolder + "\\" + DateTime.Today.ToShortDateString().Replace("/", ".") + "-" + dbname + ".SQL";
+
+            myStreamWriter.WriteLine(temp);
+
+            myStreamWriter.Close();
+
+            proc.WaitForExit();
+
+            proc.Close();
+        }
+       
 
         public List<ChequeModel> GetNameifExisting(List<ChequeModel> check)
         {

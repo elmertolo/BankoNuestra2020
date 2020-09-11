@@ -105,10 +105,11 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(168, 341);
+            this.dateTimePicker1.Location = new System.Drawing.Point(162, 341);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(232, 22);
+            this.dateTimePicker1.Size = new System.Drawing.Size(238, 22);
             this.dateTimePicker1.TabIndex = 10;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
@@ -276,6 +277,7 @@
             this.txtBrstn.Name = "txtBrstn";
             this.txtBrstn.Size = new System.Drawing.Size(146, 29);
             this.txtBrstn.TabIndex = 40;
+            this.txtBrstn.TextChanged += new System.EventHandler(this.txtBrstn_TextChanged);
             // 
             // label1
             // 

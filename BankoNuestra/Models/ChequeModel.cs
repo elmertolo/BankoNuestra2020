@@ -10,6 +10,7 @@ namespace BankoNuestra.Models
     {
         public string BRSTN { get; set; }
         public string AccountNo { get; set; }
+        public string AccountNoHypen { get; set; }
         public string ChequeType { get; set; }
         public string ChequeName { get; set; }
         public string Name1 { get; set; }
